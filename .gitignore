@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de lock que você não quer versionar (opcional)
+package-lock.json
+yarn.lock
+
+# Arquivos de configuração do editor (opcional)
+.vscode/
