@@ -44,3 +44,12 @@ export async function findColumnsByBoardId(quadro_id: number) {
   return result.rows;
 
 }
+
+export async function deleteBoard(id: number) {
+
+  await pool.query(
+    "DELETE FROM quadro WHERE id=$1",
+    [id]
+  );
+
+}

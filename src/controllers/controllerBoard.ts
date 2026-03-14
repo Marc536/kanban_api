@@ -58,3 +58,25 @@ export async function getBoard(req: Request, res: Response) {
   }
 
 }
+
+export async function deleteBoard(req: Request, res: Response) {
+
+  try {
+
+    const boardId = Number(req.params.id);
+
+    await boardService.deleteBoard(boardId);
+
+    return res.json({
+      message: "Quadro deletado com sucesso"
+    });
+
+  } catch (error: any) {
+
+    return res.status(400).json({
+      error: error.message
+    });
+
+  }
+
+}

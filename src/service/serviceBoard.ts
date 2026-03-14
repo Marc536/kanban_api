@@ -71,3 +71,19 @@ export async function getBoard(boardId: number) {
   };
 
 }
+
+export async function deleteBoard(boardId: number) {
+
+  if (!boardId) {
+    throw new Error("id do quadro é obrigatório");
+  }
+
+  const board = await boardRepository.findBoardById(boardId);
+
+  if (!board) {
+    throw new Error("Quadro não encontrado");
+  }
+
+  await boardRepository.deleteBoard(boardId);
+
+}
