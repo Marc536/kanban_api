@@ -16,6 +16,15 @@ export async function createColumn(
     throw new Error("Quadro não encontrado");
   }
 
+  const columnExists = await columnRepository.findColumnByOrder(
+    ordem,
+    quadro_id
+  );
+
+  if (columnExists) {
+    throw new Error("Já existe uma coluna com essa ordem neste quadro");
+  }
+
   return columnRepository.createColumn(
     nome,
     ordem,
