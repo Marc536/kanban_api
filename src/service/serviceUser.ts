@@ -19,3 +19,19 @@ export async function createUser(
   return user;
 
 }
+
+export async function getUser(id: number) {
+
+  if (!id) {
+    throw new Error("id é obrigatório");
+  }
+
+  const user = await userRepository.getUser(id);
+
+  if (!user) {
+    throw new Error("usuário não encontrado");
+  }
+
+  return user;
+
+}

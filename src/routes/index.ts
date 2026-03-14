@@ -7,6 +7,7 @@ import * as controllerCard from "../controllers/controllerCard";
 const router = Router();
 
 router.post("/users", controllerUser.createUser);
+router.get("/users/:id", controllerUser.getUser);
 router.post("/boards", controllerBoard.createBoard);
 router.post("/columns", controllerColumn.createColumn);
 router.post("/cards", controllerCard.createCard);
