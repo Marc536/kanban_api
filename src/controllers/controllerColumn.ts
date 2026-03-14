@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as columnRepository from "../repository/repositoryColumn";
+import * as columnService from "../service/serviceColumn";
 
 export async function createColumn(req: Request, res: Response) {
 
@@ -7,21 +7,7 @@ export async function createColumn(req: Request, res: Response) {
 
     const { nome, ordem, quadro_id } = req.body;
 
-    if (!nome || !ordem || !quadro_id) {
-      return res.status(400).json({
-        error: "nome, ordem e quadro_id são obrigatórios"
-      });
-    }
-
-    const board = await columnRepository.findBoardById(quadro_id);
-
-    if (!board) {
-      return res.status(404).json({
-        error: "Quadro não encontrado"
-      });
-    }
-
-    const column = await columnRepository.createColumn(
+    const column = await columnService.createColumn(
       nome,
       ordem,
       quadro_id
@@ -29,12 +15,10 @@ export async function createColumn(req: Request, res: Response) {
 
     return res.status(201).json(column);
 
-  } catch (error) {
+  } catch (error: any) {
 
-    console.error(error);
-
-    return res.status(500).json({
-      error: "Erro ao criar coluna"
+    return res.status(400).json({
+      error: error.message
     });
 
   }
