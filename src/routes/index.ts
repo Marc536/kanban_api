@@ -9,6 +9,8 @@ const router = Router();
 router.post("/users", controllerUser.createUser);
 router.get("/users/:id", controllerUser.getUser);
 router.post("/boards", controllerBoard.createBoard);
+router.get("/boards", controllerBoard.getBoards);
+router.get("/boards/:id", controllerBoard.getBoard);
 router.post("/columns", controllerColumn.createColumn);
 router.get("/columns/:id", controllerColumn.getColumn);
 router.post("/cards", controllerCard.createCard);
