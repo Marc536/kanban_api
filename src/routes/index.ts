@@ -10,6 +10,7 @@ router.post("/users", controllerUser.createUser);
 router.get("/users/:id", controllerUser.getUser);
 router.post("/boards", controllerBoard.createBoard);
 router.post("/columns", controllerColumn.createColumn);
+router.get("/columns/:id", controllerColumn.getColumn);
 router.post("/cards", controllerCard.createCard);
 router.get("/cards/:id", controllerCard.getCard);
 router.patch("/cards/:id/move", controllerCard.moveCard);

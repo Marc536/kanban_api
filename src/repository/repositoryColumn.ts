@@ -39,3 +39,25 @@ export async function findColumnByOrder(
   return result.rows[0];
 
 }
+
+export async function findColumnById(id: number) {
+
+  const result = await pool.query(
+    "SELECT * FROM coluna WHERE id=$1",
+    [id]
+  );
+
+  return result.rows[0];
+
+}
+
+export async function findCardsByColumnId(coluna_id: number) {
+
+  const result = await pool.query(
+    "SELECT id, titulo FROM card WHERE coluna_id=$1",
+    [coluna_id]
+  );
+
+  return result.rows;
+
+}

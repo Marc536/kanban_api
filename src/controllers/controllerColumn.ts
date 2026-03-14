@@ -24,3 +24,23 @@ export async function createColumn(req: Request, res: Response) {
   }
 
 }
+
+export async function getColumn(req: Request, res: Response) {
+
+  try {
+
+    const columnId = Number(req.params.id);
+
+    const column = await columnService.getColumn(columnId);
+
+    return res.status(200).json(column);
+
+  } catch (error: any) {
+
+    return res.status(400).json({
+      error: error.message
+    });
+
+  }
+
+}

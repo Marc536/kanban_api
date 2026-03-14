@@ -32,3 +32,30 @@ export async function createColumn(
   );
 
 }
+
+export async function getColumn(columnId: number) {
+
+  if (!columnId) {
+    throw new Error("id da coluna é obrigatório");
+  }
+
+  const column = await columnRepository.findColumnById(columnId);
+
+  if (!column) {
+    throw new Error("Coluna não encontrada");
+  }
+
+  const cards = await columnRepository.findCardsByColumnId(columnId);
+
+  const cardsDict: Record<number, string> = {};
+
+  for (const card of cards) {
+    cardsDict[card.id] = card.titulo;
+  }
+
+  return {
+    ...column,
+    cards: cardsDict
+  };
+
+}
