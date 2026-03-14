@@ -71,3 +71,17 @@ export async function updateCardColumn(card_id:number,coluna_id:number){
   );
 
 }
+
+export async function getCardById(id:number){
+
+  const query = `
+  SELECT *
+  FROM card
+  WHERE id = $1
+  `;
+
+  const result = await pool.query(query,[id]);
+
+  return result.rows[0];
+
+}

@@ -49,3 +49,23 @@ export async function moveCard(req: Request, res: Response) {
   }
 
 }
+
+export async function getCard(req: Request, res: Response) {
+
+  try {
+
+    const cardId = Number(req.params.id);
+
+    const card = await cardService.getCard(cardId);
+
+    return res.status(200).json(card);
+
+  } catch (error: any) {
+
+    return res.status(400).json({
+      error: error.message
+    });
+
+  }
+
+}

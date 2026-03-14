@@ -62,3 +62,19 @@ export async function moveCard(
 
   return { message: "Card movido com sucesso" };
 }
+
+export async function getCard(cardId: number) {
+
+  if (!cardId) {
+    throw new Error("id do card é obrigatório");
+  }
+
+  const card = await cardRepository.getCardById(cardId);
+
+  if (!card) {
+    throw new Error("Card não encontrado");
+  }
+
+  return card;
+
+}
