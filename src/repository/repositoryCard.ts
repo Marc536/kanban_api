@@ -53,21 +53,21 @@ export async function findCardById(id:number){
   return result.rows[0];
 }
 
-export async function findBoardByColumn(columnId:number){
+export async function findBoardByColumn(coluna_id:number){
 
   const result = await pool.query(
     "SELECT quadro_id FROM coluna WHERE id=$1",
-    [columnId]
+    [coluna_id]
   );
 
   return result.rows[0];
 }
 
-export async function updateCardColumn(cardId:number,coluna_id:number){
+export async function updateCardColumn(card_id:number,coluna_id:number){
 
   await pool.query(
     "UPDATE card SET coluna_id=$1 WHERE id=$2",
-    [coluna_id,cardId]
+    [coluna_id,card_id]
   );
 
 }
