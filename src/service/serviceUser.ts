@@ -35,3 +35,19 @@ export async function getUser(id: number) {
   return user;
 
 }
+
+export async function deleteUser(id: number) {
+
+  if (!id) {
+    throw new Error("id do usuário é obrigatório");
+  }
+
+  const user = await userRepository.getUser(id);
+
+  if (!user) {
+    throw new Error("Usuário não encontrado");
+  }
+
+  await userRepository.deleteUser(id);
+
+}

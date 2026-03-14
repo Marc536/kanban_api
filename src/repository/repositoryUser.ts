@@ -30,3 +30,12 @@ export async function getUser(id: number){
   return result.rows[0];
 
 }
+
+export async function deleteUser(id: number){
+
+  await pool.query(
+    "DELETE FROM usuario WHERE id=$1",
+    [id]
+  );
+
+}

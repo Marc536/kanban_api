@@ -44,3 +44,25 @@ export async function getUser(req: Request, res: Response) {
   }
 
 }
+
+export async function deleteUser(req: Request, res: Response) {
+
+  try {
+
+    const userId = Number(req.params.id);
+
+    await userService.deleteUser(userId);
+
+    return res.json({
+      message: "Usuário deletado com sucesso"
+    });
+
+  } catch (error: any) {
+
+    return res.status(400).json({
+      error: error.message
+    });
+
+  }
+
+}
