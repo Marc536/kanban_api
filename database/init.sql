@@ -19,6 +19,8 @@ CREATE TABLE coluna (
         FOREIGN KEY (quadro_id)
         REFERENCES quadro(id)
         ON DELETE CASCADE
+    CONSTRAINT unique_ordem_por_quadro
+        UNIQUE (quadro_id, ordem)
 );
 
 CREATE TABLE card (
