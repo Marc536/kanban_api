@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as userRepository from "../repository/repositoryUser";
+import * as userService from "../service/serviceUser";
 
 export async function createUser(req: Request, res: Response) {
 
@@ -7,13 +7,7 @@ export async function createUser(req: Request, res: Response) {
 
     const { nome, email, telefone } = req.body;
 
-    if (!nome || !email) {
-      return res.status(400).json({
-        error: "nome e email são obrigatórios"
-      });
-    }
-
-    const user = await userRepository.createUser(
+    const user = await userService.createUser(
       nome,
       email,
       telefone
@@ -21,12 +15,10 @@ export async function createUser(req: Request, res: Response) {
 
     return res.status(201).json(user);
 
-  } catch (error) {
+  } catch (error: any) {
 
-    console.error(error);
-
-    return res.status(500).json({
-      error: "Erro ao criar usuário"
+    return res.status(400).json({
+      error: error.message
     });
 
   }

@@ -1,6 +1,6 @@
 import { pool } from "../db/connection";
 
-export async function createUser(nome: string,email: string,telefone: string){
+export async function createUser(nome: string,email: string,telefone?: string){
 
   const query = `
   INSERT INTO usuario (nome,email,telefone)
