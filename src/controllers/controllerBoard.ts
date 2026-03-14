@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as boardRepository from "../repository/repositoryBoard";
+import * as boardService from "../service/serviceBoard";
 
 export async function createBoard(req: Request, res: Response) {
 
@@ -7,22 +7,14 @@ export async function createBoard(req: Request, res: Response) {
 
     const { nome } = req.body;
 
-    if (!nome) {
-      return res.status(400).json({
-        error: "nome do quadro é obrigatório"
-      });
-    }
-
-    const board = await boardRepository.createBoard(nome);
+    const board = await boardService.createBoard(nome);
 
     return res.status(201).json(board);
 
-  } catch (error) {
+  } catch (error: any) {
 
-    console.error(error);
-
-    return res.status(500).json({
-      error: "Erro ao criar quadro"
+    return res.status(400).json({
+      error: error.message
     });
 
   }
