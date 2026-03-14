@@ -78,7 +78,7 @@ describe("Kanban API Integration", () => {
     const res = await request(app)
       .patch(`/cards/${cardId}/move`)
       .send({
-        targetColumnId: columnId
+        coluna_id: columnId
       });
 
     expect(res.status).toBe(200);

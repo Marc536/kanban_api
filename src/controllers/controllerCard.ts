@@ -31,11 +31,11 @@ export async function moveCard(req: Request, res: Response) {
   try {
 
     const cardId = Number(req.params.id);
-    const { targetColumnId } = req.body;
+    const { coluna_id } = req.body;
 
     const result = await cardService.moveCard(
       cardId,
-      targetColumnId
+      coluna_id
     );
 
     return res.json(result);
