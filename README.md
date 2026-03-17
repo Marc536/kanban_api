@@ -361,6 +361,10 @@ Essa separação melhora:
 Além dos endpoints obrigatórios definidos no desafio, foram incluídos alguns endpoints extras:
 
 - GET /boards
+- GET /boards/:id
+- GET /columns/:id
+- GET /cards/:id
+- GET /users/:id
 - DELETE /users/:id
 - DELETE /boards/:id
 
