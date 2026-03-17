@@ -6,7 +6,8 @@ describe("Kanban API Integration", () => {
 
   let userId: number;
   let boardId: number;
-  let columnId: number;
+  let columnIdTodo: number;
+  let columnIdWip: number;
   let cardId: number;
 
   // ---- Happy Path ----
@@ -34,7 +35,7 @@ describe("Kanban API Integration", () => {
       quadro_id: boardId
     });
     expect(res.status).toBe(201);
-    columnId = res.body.id;
+    columnIdTodo = res.body.id;
   });
 
   test("create column Wip", async () => {
@@ -44,14 +45,14 @@ describe("Kanban API Integration", () => {
       quadro_id: boardId
     });
     expect(res.status).toBe(201);
-    columnId = res.body.id;
+    columnIdWip = res.body.id;
   });
 
   test("create card", async () => {
     const res = await request(app).post("/cards").send({
       titulo: "Criar API",
       descricao: "Testando integração",
-      coluna_id: columnId,
+      coluna_id: columnIdTodo,
       usuario_id: userId
     });
     expect(res.status).toBe(201);
@@ -60,7 +61,7 @@ describe("Kanban API Integration", () => {
 
   test("move card", async () => {
     const res = await request(app).patch(`/cards/${cardId}/move`).send({
-      coluna_id: columnId
+      coluna_id: columnIdWip
     });
     expect(res.status).toBe(200);
     expect(res.body.message).toBe("Card movido com sucesso");
@@ -75,13 +76,14 @@ describe("Kanban API Integration", () => {
     expect(boardRes.status).toBe(200);
     expect(boardRes.body.id).toBe(boardId);
 
-    const columnRes = await request(app).get(`/columns/${columnId}`);
+    const columnRes = await request(app).get(`/columns/${columnIdTodo}`);
     expect(columnRes.status).toBe(200);
-    expect(columnRes.body.id).toBe(columnId);
+    expect(columnRes.body.id).toBe(columnIdTodo);
 
     const cardRes = await request(app).get(`/cards/${cardId}`);
     expect(cardRes.status).toBe(200);
     expect(cardRes.body.id).toBe(cardId);
+    expect(cardRes.body.coluna_id).toBe(columnIdWip)
   });
 
   test("delete board and user", async () => {
