@@ -53,3 +53,19 @@ export async function deleteBoard(id: number) {
   );
 
 }
+
+export async function getBoards() {
+  const result = await pool.query(`
+    SELECT 
+      q.id AS board_id,
+      q.nome AS board_nome,
+      c.id AS column_id,
+      c.nome AS column_nome,
+      c.ordem
+    FROM quadro q
+    LEFT JOIN coluna c ON c.quadro_id = q.id
+    ORDER BY q.id, c.ordem
+  `);
+
+  return result
+}

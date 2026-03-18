@@ -14,31 +14,29 @@ export async function createBoard(nome: string) {
 
 export async function getBoards() {
 
-  const boards = await boardRepository.findAllBoards();
+  const boardsMap: Record<number, any> = {};
+  const result = await boardRepository.getBoards();
 
-  const result = [];
+  for (const row of result.rows) {
 
-  for (const board of boards) {
-
-    const columns = await boardRepository.findColumnsByBoardId(board.id);
-
-    const columnsDict: Record<number, any> = {};
-
-    for (const column of columns) {
-      columnsDict[column.id] = {
-        nome: column.nome,
-        ordem: column.ordem
+    if (!boardsMap[row.board_id]) {
+      boardsMap[row.board_id] = {
+        id: row.board_id,
+        nome: row.board_nome,
+        columns: {}
       };
     }
 
-    result.push({
-      ...board,
-      columns: columnsDict
-    });
+    if (row.column_id) {
+      boardsMap[row.board_id].columns[row.column_id] = {
+        nome: row.column_nome,
+        ordem: row.ordem
+      };
+    }
 
   }
 
-  return result;
+  return Object.values(boardsMap);
 
 }
 
@@ -57,6 +55,7 @@ export async function getBoard(boardId: number) {
   const columns = await boardRepository.findColumnsByBoardId(boardId);
 
   const columnsDict: Record<number, any> = {};
+
 
   for (const column of columns) {
     columnsDict[column.id] = {
